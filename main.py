@@ -16,6 +16,6 @@ def binarySearch(arr, x):
     
     return -1
 
-lista = list(1,2,3,3,4,5,6,7,8,9)
+lista = [1,2,3,3,4,5,6,7,8,9]
 
 print(binarySearch(lista, 7))
