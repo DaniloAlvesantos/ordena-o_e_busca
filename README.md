@@ -1,11 +1,51 @@
-# Ordenção e Busca
-Este repositório aborda sobre o algoritmo de ***busca binária*** e ***quicksort***
+# 🚀 Passo a passo para rodar o projeto Flask
 
-## O que é busca binária
-A busca binária é um método rapido de busca que , exigindo uma lista ordenada , dividindo repetidamente 
-o intervalo de busca pela metade.
-A busca binária é mais eficiente que a busca linear, porém só pode ser aplicada em listas ordenadas.
+Este guia explica como configurar e executar o projeto localmente.
 
-## o que é QUICKSORT
-É um algoritmo eficiente de ordenação "dividir e conquistar" que escolhe um pivô e particiona elementos
-menores á esquerda e maiores á direita, repetindo o processo.
+---
+
+## 1. Clonar o repositório
+
+```bash
+git clone <URL_DO_REPOSITORIO>
+cd <NOME_DA_PASTA>
+```
+
+## 2. Criar e ativar o ambiente virtual (.venv)
+
+Windows
+```
+python -m venv .venv
+.\.venv\Scripts\activate
+```
+
+Linux / MacOS
+```
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+## 3. Instalar dependências
+pip install flask
+
+```
+pip install -r requirements.txt
+```
+
+4. Inicializar banco de dados (SQLite)
+
+Se existir script de inicialização:
+```
+python init_db.py
+```
+Ou garanta que o arquivo:
+```
+database.db
+```
+
+exista no projeto.
+
+6. Rodar o servidor Flask
+```
+flask run --debug
+```

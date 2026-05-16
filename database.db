@@ -1,0 +1,73 @@
+DROP TABLE IF EXISTS tb_books_genres;
+DROP TABLE IF EXISTS tb_books_authors;
+DROP TABLE IF EXISTS tb_books;
+DROP TABLE IF EXISTS tb_authors;
+DROP TABLE IF EXISTS tb_genres;
+DROP TABLE IF EXISTS tb_users;
+
+CREATE TABLE tb_authors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE tb_genres (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    parent_id INTEGER,
+
+    CONSTRAINT fk_genres_parent
+        FOREIGN KEY (parent_id)
+        REFERENCES tb_genres(id)
+        ON DELETE SET NULL
+);
+
+CREATE TABLE tb_books (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    slug TEXT NOT NULL UNIQUE,
+    number_of_pages INTEGER NOT NULL CHECK (number_of_pages > 0),
+    price REAL NOT NULL CHECK (price >= 0),
+    publication_year INTEGER NOT NULL CHECK (publication_year > 0)
+);
+
+CREATE TABLE tb_books_authors (
+    book_id INTEGER NOT NULL,
+    author_id INTEGER NOT NULL,
+
+    PRIMARY KEY (book_id, author_id),
+
+    CONSTRAINT fk_books_authors_book
+        FOREIGN KEY (book_id)
+        REFERENCES tb_books(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_books_authors_author
+        FOREIGN KEY (author_id)
+        REFERENCES tb_authors(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE tb_books_genres (
+    book_id INTEGER NOT NULL,
+    genre_id INTEGER NOT NULL,
+
+    PRIMARY KEY (book_id, genre_id),
+
+    CONSTRAINT fk_books_genres_book
+        FOREIGN KEY (book_id)
+        REFERENCES tb_books(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_books_genres_genre
+        FOREIGN KEY (genre_id)
+        REFERENCES tb_genres(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE tb_users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL
+);
